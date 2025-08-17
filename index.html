@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Breast Cancer Prediction</title>
+
+</head>
+
+<body>
+
+    <h2>Enter Cell Attributes</h2>
+
+    <form action="/predict" method="post">
+
+        <label>Clump Thickness:</label>
+
+        <input type="number" name="clump_thickness" required><br><br>
+
+        <label>Uniformity of Cell Size:</label>
+
+        <input type="number" name="uniformity_cell_size" required><br><br>
+
+        <label>Uniformity of Cell Shape:</label>
+
+        <input type="number" name="uniformity_cell_shape" required><br><br>
+
+        <label>Marginal Adhesion:</label>
+
+        <input type="number" name="marginal_adhesion" required><br><br>
+
+        <label>Single Epithelial Cell Size:</label>
+
+        <input type="number" name="single_epithelial_cell_size" required><br><br>
+
+        <label>Bare Nuclei:</label>
+
+        <input type="number" name="bare_nuclei" required><br><br>
+
+        <label>Bland Chromatin:</label>
+
+        <input type="number" name="bland_chromatin" required><br><br>
+
+        <label>Normal Nucleoli:</label>
+
+        <input type="number" name="normal_nucleoli" required><br><br>
+
+        <label>Mitoses:</label>
+
+        <input type="number" name="mitoses" required><br><br>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+</body>
+
+</html>
