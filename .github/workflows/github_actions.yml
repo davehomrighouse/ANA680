@@ -1,1 +1,26 @@
+name: Breast Cancer Prediction
 
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # latest is version 4 as of Aug 17 2025 
+
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.14.15 # Latest version as of Aug 17 2025
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "app.py"
+          heroku_email: "homrighoused@google.com"
+          usedocker: false
+         
