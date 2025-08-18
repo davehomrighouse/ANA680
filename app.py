@@ -17,7 +17,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-# Load your trained model
+# Load trained model
 with open("lgr.pkl", "rb") as f:
     scaler, lgr = pickle.load(f)
 
@@ -48,10 +48,10 @@ def index():
       result = lgr.predict(scaled_inputs)[0]
 
     # Map 0 → Benign, 1 → Malignant
-    if result == 0:
-      prediction = "Benign"
-    else:
-      prediction = "Malignant"
+      if result == 0:
+        prediction = "Benign"
+      else:
+        prediction = "Malignant"
 
     return render_template("index.html", prediction=prediction)
 
