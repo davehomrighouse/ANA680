@@ -16,7 +16,7 @@
 
     <h2>Enter Cell Attributes</h2>
 
-    <form action="/predict" method="post">
+    <form method="post">
 
         <label>Clump Thickness:</label>
 
@@ -57,7 +57,11 @@
         <button type="submit">Submit</button>
 
     </form>
-
+    
+    {% if prediction is not none %}
+        <h2>Prediction: {{ prediction }}</h2>
+    {% endif %}
+    
 </body>
 
 </html>
