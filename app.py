@@ -45,7 +45,13 @@ def index():
     # Must scale the inputs as the model was trained on scaled data
       scaled_inputs = scaler.transform(inputs)
     # Make prediction
-      prediction = lgr.predict(scaled_inputs)[0]
+      result = lgr.predict(scaled_inputs)[0]
+
+    # Map 0 → Benign, 1 → Malignant
+    if result == 0:
+      prediction = "Benign"
+    else:
+      prediction = "Malignant"
 
     return render_template("index.html", prediction=prediction)
 
