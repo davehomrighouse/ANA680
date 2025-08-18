@@ -21,34 +21,33 @@ app = Flask(__name__)
 with open("lgr.pkl", "rb") as f:
     scaler, lgr = pickle.load(f)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    prediction = None
+    if request.method == "POST":
 
-@app.route("/predict", methods=["POST"])
-def predict():
-    # Collect form inputs
-    clump_thickness = int(request.form["clump_thickness"])
-    uniformity_cell_size = int(request.form["uniformity_cell_size"])
-    uniformity_cell_shape = int(request.form["uniformity_cell_shape"])
-    marginal_adhesion = int(request.form["marginal_adhesion"])
-    single_epithelial_cell_size = int(request.form["single_epithelial_cell_size"])
-    bare_nuclei = int(request.form["bare_nuclei"])
-    bland_chromatin = int(request.form["bland_chromatin"])
-    normal_nucleoli = int(request.form["normal_nucleoli"])
-    mitoses = int(request.form["mitoses"])
+      # Collect form inputs
+      clump_thickness = int(request.form["clump_thickness"])
+      uniformity_cell_size = int(request.form["uniformity_cell_size"])
+      uniformity_cell_shape = int(request.form["uniformity_cell_shape"])
+      marginal_adhesion = int(request.form["marginal_adhesion"])
+      single_epithelial_cell_size = int(request.form["single_epithelial_cell_size"])
+      bare_nuclei = int(request.form["bare_nuclei"])
+      bland_chromatin = int(request.form["bland_chromatin"])
+      normal_nucleoli = int(request.form["normal_nucleoli"])
+      mitoses = int(request.form["mitoses"])
 
     # Arrange into model input format
-    inputs = np.array([[clump_thickness, uniformity_cell_size, uniformity_cell_shape,
-                        marginal_adhesion, single_epithelial_cell_size, bare_nuclei,
-                        bland_chromatin, normal_nucleoli, mitoses]])
+      inputs = np.array([[clump_thickness, uniformity_cell_size, uniformity_cell_shape,
+                          marginal_adhesion, single_epithelial_cell_size, bare_nuclei,
+                          bland_chromatin, normal_nucleoli, mitoses]])
 
     # Must scale the inputs as the model was trained on scaled data
-    scaled_inputs = scaler.transform(inputs)
+      scaled_inputs = scaler.transform(inputs)
     # Make prediction
-    prediction = lgr.predict(scaled_inputs)
+      prediction = lgr.predict(scaled_inputs)[0]
 
-    return f"<h3>Prediction: {prediction[0]}</h3>"
+    return render_template("index.html", prediction=prediction)
 
 if __name__ == "__main__":
     app.run(debug=True)
